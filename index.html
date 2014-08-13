@@ -33,6 +33,12 @@
 			y: Math.random()*400
 		}
 
+		function gameLoop(){
+			moveTreasureBoxLittle();
+			detectColission();
+			displaySmileyAndTreasure();
+		}
+
 		function displaySmileyAndTreasure(){
 			$('.container').html("<img style='position:absolute; top:"+position.y+"px; left:"+position.x+"px; width:30px;' src='character.jpeg' /><img class='treasure' style='top: "+treasure.y+"px; left: "+treasure.x+"px' src='treasure.png' />");
 		}
@@ -48,6 +54,11 @@
 				}
 				$('.score').html(score);
 			}
+		}
+
+		function moveTreasureBoxLittle(){
+			treasure.x = treasure.x + Math.random()*30-15;
+			treasure.y = treasure.y + Math.random()*30-15;
 		}
 
 		document.onkeydown = function(e){
@@ -67,10 +78,12 @@
 			{
 				position.y += 10;
 			}
+			moveTreasureBoxLittle();
 			detectColission();
 			displaySmileyAndTreasure();
 		}
-		displaySmileyAndTreasure();
+
+		setInterval(gameLoop,30);
 	});
 
 	</script>
@@ -79,8 +92,6 @@
 	<div class='container'>
 
 	</div>
-	<div class='score'>
-		0
-	</div>
+	<div class='score'>0</div>
 </body>
 </html>
