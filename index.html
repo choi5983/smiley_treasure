@@ -1,0 +1,86 @@
+<html>
+<head>
+	<title>Smiley Face Game</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<style type="text/css">
+	.score{
+		position:absolute;
+		top:10px;
+		left:500px;
+		border:2px solid silver;
+		padding:20px 10px;
+		width:50px;
+		text-align:center;
+		font-size:20px;
+	}
+	img.treasure{
+		position:absolute;
+		width:30px;
+	}
+	</style>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var score = 0;
+		var position = {
+			x : 250,
+			y: 200
+		}
+
+		var treasure = {
+			x: Math.random()*500,
+			y: Math.random()*400
+		}
+
+		function displaySmileyAndTreasure(){
+			$('.container').html("<img style='position:absolute; top:"+position.y+"px; left:"+position.x+"px; width:30px;' src='character.jpeg' /><img class='treasure' style='top: "+treasure.y+"px; left: "+treasure.x+"px' src='treasure.png' />");
+		}
+
+		function detectColission(){
+			console.log(treasure.x, position.x);
+			if(treasure.x > position.x-10 && treasure.x < position.x+10 && treasure.y > position.y-10 && treasure.y < position.y+10)
+			{
+				score += 10;
+				treasure = {
+					x: Math.random()*500,
+					y: Math.random()*400
+				}
+				$('.score').html(score);
+			}
+		}
+
+		document.onkeydown = function(e){
+			if(e.keyIdentifier == 'Right')
+			{
+				position.x += 10;
+			}
+			else if(e.keyIdentifier == 'Left')
+			{
+				position.x -= 10;
+			}
+			else if(e.keyIdentifier == 'Up')
+			{
+				position.y -= 10;
+			}
+			else if(e.keyIdentifier == 'Down')
+			{
+				position.y += 10;
+			}
+			detectColission();
+			displaySmileyAndTreasure();
+		}
+		displaySmileyAndTreasure();
+	});
+
+	</script>
+</head>
+<body>
+	<div class='container'>
+
+	</div>
+	<div class='score'>
+		0
+	</div>
+</body>
+</html>
